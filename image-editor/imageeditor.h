@@ -12,5 +12,5 @@ public:
     ~imageeditor();
 
 private:
-    Ui::imageeditorClass ui;
+    Ui::mainWindow ui;
 };
