@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "image-editor", "image-editor\image-editor.vcxproj", "{305DFE94-68A2-4720-BF4C-8610E698A031}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{305DFE94-68A2-4720-BF4C-8610E698A031}.Debug|x64.ActiveCfg = Debug|x64
+		{305DFE94-68A2-4720-BF4C-8610E698A031}.Debug|x64.Build.0 = Debug|x64
+		{305DFE94-68A2-4720-BF4C-8610E698A031}.Release|x64.ActiveCfg = Release|x64
+		{305DFE94-68A2-4720-BF4C-8610E698A031}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DFCE53DA-1FA7-462D-B7C5-36972B86442E}
+	EndGlobalSection
+EndGlobal
