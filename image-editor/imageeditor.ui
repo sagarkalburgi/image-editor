@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1176</width>
+    <width>1175</width>
     <height>749</height>
    </rect>
   </property>
@@ -19,6 +19,12 @@
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>1175</width>
+    <height>749</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>imageeditor</string>
   </property>
@@ -26,67 +32,18 @@
    <widget class="QGraphicsView" name="graphicsView">
     <property name="geometry">
      <rect>
-      <x>145</x>
-      <y>30</y>
+      <x>150</x>
+      <y>40</y>
       <width>931</width>
       <height>621</height>
      </rect>
     </property>
-   </widget>
-   <widget class="QFrame" name="frame">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>121</width>
-      <height>671</height>
-     </rect>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
-    </property>
-    <widget class="QRadioButton" name="edge">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>30</y>
-       <width>82</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>edge</string>
-     </property>
-    </widget>
-    <widget class="QRadioButton" name="threshold">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>100</y>
-       <width>82</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>threshold</string>
-     </property>
-    </widget>
-    <widget class="QRadioButton" name="split">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>180</y>
-       <width>82</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>split</string>
-     </property>
-    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -94,8 +51,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1176</width>
-     <height>21</height>
+     <width>1175</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="locale">
