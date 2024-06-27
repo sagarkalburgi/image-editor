@@ -93,12 +93,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <QtRcc Include="imageeditor.qrc"/>
-    <QtUic Include="imageeditor.ui"/>
-    <QtMoc Include="imageeditor.h"/>
-    <ClCompile Include="imageeditor.cpp"/>
-    <ClCompile Include="main.cpp"/>
-
+    <QtRcc Include="imageeditor.qrc" />
+    <QtUic Include="imageeditor.ui" />
+    <QtMoc Include="imageeditor.h" />
+    <ClCompile Include="Events.cpp" />
+    <ClCompile Include="ImageEditor.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="events.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
