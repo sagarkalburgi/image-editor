@@ -2,6 +2,9 @@
 
 // Qt
 #include <QtWidgets/QMainWindow>
+#include <QFileDialog>
+#include <QDebug>
+
 #include "ui_imageeditor.h"
 
 QT_BEGIN_NAMESPACE
@@ -26,6 +29,9 @@ public:
     /// Destructor
     /// </summary>
     ~imageeditor();
+
+private slots:
+    void openFile(); // Slot to handle file opeing
 
 private:
     Ui::mainWindow *ui;
