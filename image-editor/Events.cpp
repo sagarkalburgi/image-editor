@@ -77,3 +77,39 @@ void EventHandler::wheelEvent(QWheelEvent* event)
 		scale(1.0 / scaleFactor, 1.0 / scaleFactor);
 	}
 }
+
+void EventHandler::mousePressEvent(QMouseEvent* event)
+{
+	if (event->button() == Qt::MiddleButton) {
+		panning = true;
+		lastPanPoint = event->pos();
+		setCursor(Qt::ClosedHandCursor);
+		event->accept();
+		return;
+	}
+	QGraphicsView::mousePressEvent(event);
+}
+
+void EventHandler::mouseMoveEvent(QMouseEvent* event)
+{
+	if (panning) {
+		QPoint delta = event->pos() - lastPanPoint;
+		lastPanPoint = event->pos();
+		horizontalScrollBar()->setValue(horizontalScrollBar()->value() - delta.x());
+		verticalScrollBar()->setValue(verticalScrollBar()->value() - delta.y());
+		event->accept();
+		return;
+	}
+	QGraphicsView::mouseMoveEvent(event);
+}
+
+void EventHandler::mouseReleaseEvent(QMouseEvent* event)
+{
+	if (event->button() == Qt::MiddleButton) {
+		panning = false;
+		setCursor(Qt::ArrowCursor);
+		event->accept();
+		return;
+	}
+	QGraphicsView::mouseReleaseEvent(event);
+}

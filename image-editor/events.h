@@ -13,6 +13,8 @@
 #include <QPixmap>
 #include <QWidget>
 #include <QDebug>
+#include <QMouseEvent>
+#include <QScrollBar>
 
 /// <summary>
 /// Drag and Drop Handler class
@@ -60,10 +62,32 @@ protected:
 	/// <param name="event"></param>
 	void wheelEvent(QWheelEvent* event);
 
+	/// <summary>
+	/// Event for mouse wheel press
+	/// </summary>
+	/// <param name="event"></param>
+	void mousePressEvent(QMouseEvent* event) override;
+
+	/// <summary>
+	/// Event for mouse move
+	/// </summary>
+	/// <param name="event"></param>
+	void mouseMoveEvent(QMouseEvent* event) override;
+
+	/// <summary>
+	/// Event for mouse wheel release
+	/// </summary>
+	/// <param name="event"></param>
+	void mouseReleaseEvent(QMouseEvent* event) override;
+
 private:
 	QGraphicsScene* scene;
 	QPixmap orignalImage;
 	double scaleFactor = 1.1; // Scale factor for zooming
+
+	// For panning
+	bool panning = false;
+	QPoint lastPanPoint;
 };
 
 #endif // EVENTS_H
