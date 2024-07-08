@@ -34,25 +34,25 @@ protected:
 	/// Event for handling drag enter
 	/// </summary>
 	/// <param name="event"></param>
-	void dragEnterEvent(QDragEnterEvent* event);
+	void dragEnterEvent(QDragEnterEvent* event) override;
 
 	/// <summary>
 	/// Event for handling drag leave
 	/// </summary>
 	/// <param name="event"></param>
-	void dragLeaveEvent(QDragLeaveEvent* event);
+	void dragLeaveEvent(QDragLeaveEvent* event) override;
 
 	/// <summary>
 	/// Event for handling drag move
 	/// </summary>
 	/// <param name="event"></param>
-	void dragMoveEvent(QDragMoveEvent* event);
+	void dragMoveEvent(QDragMoveEvent* event) override;
 
 	/// <summary>
 	/// Event for handling drop
 	/// </summary>
 	/// <param name="event"></param>
-	void dropEvent(QDropEvent* event);
+	void dropEvent(QDropEvent* event) override;
 
 	/// <summary>
 	/// Event for wheel actions
