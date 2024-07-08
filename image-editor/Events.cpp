@@ -80,7 +80,8 @@ void EventHandler::wheelEvent(QWheelEvent* event)
 
 void EventHandler::mousePressEvent(QMouseEvent* event)
 {
-	if (event->button() == Qt::MiddleButton) {
+	if (event->button() == Qt::MiddleButton) 
+	{
 		panning = true;
 		lastPanPoint = event->pos();
 		setCursor(Qt::ClosedHandCursor);
@@ -92,7 +93,8 @@ void EventHandler::mousePressEvent(QMouseEvent* event)
 
 void EventHandler::mouseMoveEvent(QMouseEvent* event)
 {
-	if (panning) {
+	if (panning) 
+	{
 		QPoint delta = event->pos() - lastPanPoint;
 		lastPanPoint = event->pos();
 		horizontalScrollBar()->setValue(horizontalScrollBar()->value() - delta.x());
@@ -105,7 +107,8 @@ void EventHandler::mouseMoveEvent(QMouseEvent* event)
 
 void EventHandler::mouseReleaseEvent(QMouseEvent* event)
 {
-	if (event->button() == Qt::MiddleButton) {
+	if (event->button() == Qt::MiddleButton) 
+	{
 		panning = false;
 		setCursor(Qt::ArrowCursor);
 		event->accept();
