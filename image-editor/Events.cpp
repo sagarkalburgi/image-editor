@@ -2,9 +2,9 @@
 
 EventHandler::EventHandler(QWidget* parent) : QGraphicsView(parent), scene(new QGraphicsScene(this))
 {
-	//setScene(scene);
+	setScene(scene);
 	setAcceptDrops(true);
-	//setTransformationAnchor(AnchorUnderMouse);  // Anchor zoom to mouse position
+	setTransformationAnchor(AnchorUnderMouse);  // Anchor zoom to mouse position
 }
 
 void EventHandler::dragEnterEvent(QDragEnterEvent* event)
