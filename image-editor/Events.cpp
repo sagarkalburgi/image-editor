@@ -1,14 +1,13 @@
 #include "events.h"
 
-Drag_Drop_Image::Drag_Drop_Image(QWidget* parent) : QGraphicsView(parent)
+EventHandler::EventHandler(QWidget* parent) : QGraphicsView(parent), scene(new QGraphicsScene(this))
 {
+	//setScene(scene);
 	setAcceptDrops(true);
-	scene = new QGraphicsScene(this);
-	setScene(scene);
-	viewport()->installEventFilter(this);
+	//setTransformationAnchor(AnchorUnderMouse);  // Anchor zoom to mouse position
 }
 
-void Drag_Drop_Image::dragEnterEvent(QDragEnterEvent* event)
+void EventHandler::dragEnterEvent(QDragEnterEvent* event)
 {
 	QDragEnterEvent* DragEnterEvent = static_cast<QDragEnterEvent*>(event);
 	if (DragEnterEvent->mimeData()->hasUrls())
@@ -17,27 +16,27 @@ void Drag_Drop_Image::dragEnterEvent(QDragEnterEvent* event)
 	}
 }
 
-void Drag_Drop_Image::dragLeaveEvent(QDragLeaveEvent* event)
+void EventHandler::dragLeaveEvent(QDragLeaveEvent* event)
 {
 	event->accept();
 }
 
-void Drag_Drop_Image::dragMoveEvent(QDragMoveEvent* event)
+void EventHandler::dragMoveEvent(QDragMoveEvent* event)
 {
 	event->accept();
 	event->acceptProposedAction();
 }
 
-void Drag_Drop_Image::dropEvent(QDropEvent* event)
+void EventHandler::dropEvent(QDropEvent* event)
 {
 	if (event->source() == this) return;
 
-	QDropEvent *DropEvent = static_cast<QDropEvent*>(event);
+	QDropEvent* DropEvent = static_cast<QDropEvent*>(event);
 	if (!DropEvent->mimeData()->hasUrls()) return;
 
 	QList<QUrl> urllist = DropEvent->mimeData()->urls();
 
-	foreach (QUrl url, urllist)
+	foreach(QUrl url, urllist)
 	{
 		// check if its local file
 		if (!url.isLocalFile()) continue;
@@ -48,21 +47,33 @@ void Drag_Drop_Image::dropEvent(QDropEvent* event)
 		// check if image is not null
 		if (pixmap.isNull() == true) continue;
 
+		// store the pixmap
+		orignalImage = pixmap;
+
 		// clear scene if image already exists
 		if (scene->items().count() > 0) scene->clear();
 
 		// display image
 		QGraphicsPixmapItem* item = new QGraphicsPixmapItem(pixmap);
 
-		scene->setSceneRect(pixmap.rect());
-		setSceneRect(scene->sceneRect());
-		fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
-
 		scene->addItem(item);
+		this->setScene(scene);
+		this->fitInView(item, Qt::KeepAspectRatio);
+
 		DropEvent->acceptProposedAction();
 	}
 }
 
-Events::Events()
+void EventHandler::wheelEvent(QWheelEvent* event)
 {
+	if (event->angleDelta().y() > 0)
+	{
+		// Zoom in
+		scale(scaleFactor, scaleFactor);
+	}
+	else
+	{
+		// Zoom out
+		scale(1.0 / scaleFactor, 1.0 / scaleFactor);
+	}
 }

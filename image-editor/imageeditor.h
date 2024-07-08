@@ -3,12 +3,15 @@
 // Qt
 #include <QtWidgets/QMainWindow>
 #include <QFileDialog>
+#include <QVBoxLayout>
 #include <QDebug>
 
 #include "ui_imageeditor.h"
 
+#include "events.h"
+
 QT_BEGIN_NAMESPACE
-namespace Ui { class imageeditior; }
+namespace Ui { class mainWindow; }
 QT_END_NAMESPACE
 
 /// <summary>
@@ -34,5 +37,6 @@ private slots:
     void openFile(); // Slot to handle file opeing
 
 private:
-    Ui::mainWindow *ui;
+    Ui::mainWindow* ui;
+    EventHandler* eventHandler;
 };
