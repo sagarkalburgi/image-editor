@@ -166,13 +166,33 @@ void EventHandler::updatePixelInfo(const QPoint& pos)
                                "<span style='color: red;'>R: %3</span>, "
                                "<span style='color: green;'>G: %4</span>, "
 							   "<span style='color: blue;'>B: %5</span>")
-			.arg(x)
-			.arg(y)
-			.arg(color.red())
-			.arg(color.green())
-			.arg(color.blue());
+						.arg(x)
+						.arg(y)
+						.arg(color.red())
+						.arg(color.green())
+						.arg(color.blue());
+		pixelInfoLabel->setTextFormat(Qt::RichText);
 		pixelInfoLabel->setText(info);
-		pixelInfoLabel->move(pos + QPoint(10, 10));
+
+		// Calculate new position for the label
+		int labelWidth = pixelInfoLabel->width();
+		int labelHeight = pixelInfoLabel->height();
+		int newX = pos.x() + 10;
+		int newY = pos.y() + 10;
+
+		// Adjust if the label goes out of the right edge
+		if (newX + labelWidth + 20 > this->width())
+		{
+			newX = pos.x() - labelWidth - 10;
+		}
+
+		// Adjust if the label goes out of the bottom edge
+		if (newY + labelHeight + 20 > this->height())
+		{
+			newY = pos.y() - labelHeight - 10;
+		}
+
+		pixelInfoLabel->move(newX, newY);
 		pixelInfoLabel->setVisible(true);
 	}
 	else
