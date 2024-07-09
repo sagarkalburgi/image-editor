@@ -5,7 +5,8 @@ EventHandler::EventHandler(QWidget* parent) : QGraphicsView(parent), scene(new Q
 	setScene(scene);
 	setAcceptDrops(true);
 	setTransformationAnchor(AnchorUnderMouse);  // Anchor zoom to mouse position
-	pixelInfoLabel->setStyleSheet("QLabel { background-color : white; color : black; }");
+	pixelInfoLabel->setStyleSheet("QLabel { background-color : white; color : black; border: 1px solid black}");
+	pixelInfoLabel->setFixedSize(120, 40);
 	pixelInfoLabel->setVisible(false);
 }
 
@@ -161,7 +162,10 @@ void EventHandler::updatePixelInfo(const QPoint& pos)
 	if (x >= 0 && x < imageWidth && y >= 0 && y < imageHeight)
 	{
 		QColor color = orignalImage.toImage().pixelColor(x, y);
-		QString info = QString("X: %1, Y: %2, R: %3, G: %4, B: %5")
+		QString info = QString("X: %1, Y: %2<br>"
+                               "<span style='color: red;'>R: %3</span>, "
+                               "<span style='color: green;'>G: %4</span>, "
+							   "<span style='color: blue;'>B: %5</span>")
 			.arg(x)
 			.arg(y)
 			.arg(color.red())
