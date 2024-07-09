@@ -15,6 +15,9 @@
 #include <QDebug>
 #include <QMouseEvent>
 #include <QScrollBar>
+#include <QKeyEvent>
+#include <QLabel>
+#include <QVBoxLayout>
 
 /// <summary>
 /// Drag and Drop Handler class
@@ -80,14 +83,38 @@ protected:
 	/// <param name="event"></param>
 	void mouseReleaseEvent(QMouseEvent* event) override;
 
+	/// <summary>
+	/// Event for key press
+	/// </summary>
+	/// <param name="event"></param>
+	void keyPressEvent(QKeyEvent* event) override;
+
+	/// <summary>
+	/// Event for key release
+	/// </summary>
+	/// <param name="event"></param>
+	void keyReleaseEvent(QKeyEvent* event) override;
+
+	/// <summary>
+	/// Event for tracking mouse outside the graphics view window
+	/// </summary>
+	/// <param name="event"></param>
+	void leaveEvent(QEvent* event) override;
+
 private:
 	QGraphicsScene* scene;
 	QPixmap orignalImage;
+	int imageWidth, imageHeight;
 	double scaleFactor = 1.1; // Scale factor for zooming
 
 	// For panning
 	bool panning = false;
 	QPoint lastPanPoint;
+
+	// For displaying pixel info
+	bool ctrlPressed = false;
+	QLabel* pixelInfoLabel;
+	void updatePixelInfo(const QPoint& pos);
 };
 
 #endif // EVENTS_H

@@ -1,10 +1,12 @@
 #include "events.h"
 
-EventHandler::EventHandler(QWidget* parent) : QGraphicsView(parent), scene(new QGraphicsScene(this))
+EventHandler::EventHandler(QWidget* parent) : QGraphicsView(parent), scene(new QGraphicsScene(this)), pixelInfoLabel(new QLabel(this))
 {
 	setScene(scene);
 	setAcceptDrops(true);
 	setTransformationAnchor(AnchorUnderMouse);  // Anchor zoom to mouse position
+	pixelInfoLabel->setStyleSheet("QLabel { background-color : white; color : black; }");
+	pixelInfoLabel->setVisible(false);
 }
 
 void EventHandler::dragEnterEvent(QDragEnterEvent* event)
@@ -49,6 +51,8 @@ void EventHandler::dropEvent(QDropEvent* event)
 
 		// store the pixmap
 		orignalImage = pixmap;
+		imageWidth = pixmap.width();
+		imageHeight = pixmap.height();
 
 		// clear scene if image already exists
 		if (scene->items().count() > 0) scene->clear();
@@ -102,6 +106,12 @@ void EventHandler::mouseMoveEvent(QMouseEvent* event)
 		event->accept();
 		return;
 	}
+
+	if (ctrlPressed && !orignalImage.isNull()) 
+	{
+		updatePixelInfo(event->pos());
+	}
+	
 	QGraphicsView::mouseMoveEvent(event);
 }
 
@@ -115,4 +125,54 @@ void EventHandler::mouseReleaseEvent(QMouseEvent* event)
 		return;
 	}
 	QGraphicsView::mouseReleaseEvent(event);
+}
+
+void EventHandler::keyPressEvent(QKeyEvent* event)
+{
+	if (event->key() == Qt::Key_Control) 
+	{
+		ctrlPressed = true;
+		pixelInfoLabel->setVisible(true);
+	}
+	QGraphicsView::keyPressEvent(event);
+}
+
+void EventHandler::keyReleaseEvent(QKeyEvent* event)
+{
+	if (event->key() == Qt::Key_Control) 
+	{
+		ctrlPressed = false;
+		pixelInfoLabel->setVisible(false);
+	}
+	QGraphicsView::keyReleaseEvent(event);
+}
+
+void EventHandler::leaveEvent(QEvent* event)
+{
+	pixelInfoLabel->setVisible(false);
+	QGraphicsView::leaveEvent(event);
+}
+
+void EventHandler::updatePixelInfo(const QPoint& pos)
+{
+	QPointF scenePos = mapToScene(pos);
+	int x = static_cast<int>(scenePos.x());
+	int y = static_cast<int>(scenePos.y());
+	if (x >= 0 && x < imageWidth && y >= 0 && y < imageHeight)
+	{
+		QColor color = orignalImage.toImage().pixelColor(x, y);
+		QString info = QString("X: %1, Y: %2, R: %3, G: %4, B: %5")
+			.arg(x)
+			.arg(y)
+			.arg(color.red())
+			.arg(color.green())
+			.arg(color.blue());
+		pixelInfoLabel->setText(info);
+		pixelInfoLabel->move(pos + QPoint(10, 10));
+		pixelInfoLabel->setVisible(true);
+	}
+	else
+	{
+		pixelInfoLabel->setVisible(false);
+	}
 }
