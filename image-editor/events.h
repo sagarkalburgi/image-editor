@@ -1,68 +1,120 @@
 #ifndef EVENTS_H
 #define EVENTS_H
 
-// Qt
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QDragEnterEvent>
 #include <QDragLeaveEvent>
 #include <QDragMoveEvent>
 #include <QDropEvent>
-#include <QWidget>
+#include <QWheelEvent>
 #include <QMimeData>
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
-#include <QString>
+#include <QWidget>
+#include <QDebug>
+#include <QMouseEvent>
+#include <QScrollBar>
+#include <QKeyEvent>
+#include <QLabel>
+#include <QVBoxLayout>
 
 /// <summary>
-/// eventclass
+/// Drag and Drop Handler class
 /// </summary>
-class Events
-{
-public:
-	/// <summary>
-	/// Constructor
-	/// </summary>
-	Events();
-};
-
-/// <summary>
-/// 
-/// </summary>
-class Drag_Drop_Image : public QGraphicsView
+class EventHandler : public QGraphicsView
 {
 	Q_OBJECT
+
 public:
 	/// <summary>
 	/// Constructor
 	/// </summary>
-	/// <param name="parent"></param>
-	explicit Drag_Drop_Image(QWidget* parent = nullptr);
+	/// <param name="view"></param>
+	/// <param name="scene"></param>
+	explicit EventHandler(QWidget* parent = nullptr);
 
 protected:
 	/// <summary>
-	/// Drag enter event
+	/// Event for handling drag enter
 	/// </summary>
 	/// <param name="event"></param>
-	void dragEnterEvent(QDragEnterEvent* event);
-	/// <summary>
-	/// Drag leave event
-	/// </summary>
-	/// <param name="event"></param>
-	void dragLeaveEvent(QDragLeaveEvent* event);
-	/// <summary>
-	/// Drag move event
-	/// </summary>
-	/// <param name="event"></param>
-	void dragMoveEvent(QDragMoveEvent* event);
-	/// <summary>
-	/// Drop event
-	/// </summary>
-	/// <param name="event"></param>
-	void dropEvent(QDropEvent* event);
+	void dragEnterEvent(QDragEnterEvent* event) override;
 
-protected:
+	/// <summary>
+	/// Event for handling drag leave
+	/// </summary>
+	/// <param name="event"></param>
+	void dragLeaveEvent(QDragLeaveEvent* event) override;
+
+	/// <summary>
+	/// Event for handling drag move
+	/// </summary>
+	/// <param name="event"></param>
+	void dragMoveEvent(QDragMoveEvent* event) override;
+
+	/// <summary>
+	/// Event for handling drop
+	/// </summary>
+	/// <param name="event"></param>
+	void dropEvent(QDropEvent* event) override;
+
+	/// <summary>
+	/// Event for wheel actions
+	/// </summary>
+	/// <param name="event"></param>
+	void wheelEvent(QWheelEvent* event);
+
+	/// <summary>
+	/// Event for mouse wheel press
+	/// </summary>
+	/// <param name="event"></param>
+	void mousePressEvent(QMouseEvent* event) override;
+
+	/// <summary>
+	/// Event for mouse move
+	/// </summary>
+	/// <param name="event"></param>
+	void mouseMoveEvent(QMouseEvent* event) override;
+
+	/// <summary>
+	/// Event for mouse wheel release
+	/// </summary>
+	/// <param name="event"></param>
+	void mouseReleaseEvent(QMouseEvent* event) override;
+
+	/// <summary>
+	/// Event for key press
+	/// </summary>
+	/// <param name="event"></param>
+	void keyPressEvent(QKeyEvent* event) override;
+
+	/// <summary>
+	/// Event for key release
+	/// </summary>
+	/// <param name="event"></param>
+	void keyReleaseEvent(QKeyEvent* event) override;
+
+	/// <summary>
+	/// Event for tracking mouse outside the graphics view window
+	/// </summary>
+	/// <param name="event"></param>
+	void leaveEvent(QEvent* event) override;
+
+private:
 	QGraphicsScene* scene;
+	QPixmap orignalImage;
+	int imageWidth, imageHeight;
+	double scaleFactor = 1.1; // Scale factor for zooming
+
+	// For panning
+	bool panning = false;
+	QPoint lastPanPoint;
+
+	// For displaying pixel info
+	bool ctrlPressed = false;
+	QLabel* pixelInfoLabel;
+	void updatePixelInfo(const QPoint& pos);
 };
 
-#endif // !EVENTS_H
+#endif // EVENTS_H
