@@ -8,8 +8,6 @@
 
 #include "ui_imageeditor.h"
 
-#include "events.h"
-
 QT_BEGIN_NAMESPACE
 namespace Ui { class mainWindow; }
 QT_END_NAMESPACE
@@ -38,5 +36,4 @@ private slots:
 
 private:
     Ui::mainWindow* ui;
-    EventHandler* eventHandler;
 };

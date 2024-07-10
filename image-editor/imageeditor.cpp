@@ -1,5 +1,4 @@
 #include "imageeditor.h"
-#include "events.h"
 
 imageeditor::imageeditor(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::mainWindow)
@@ -7,13 +6,6 @@ imageeditor::imageeditor(QWidget *parent)
     ui->setupUi(this);
 
     connect(ui->actionopen, &QAction::triggered, this, &imageeditor::openFile);
-
-    // Set up event handlers
-    eventHandler = new EventHandler(this);
-    eventHandler->setObjectName("graphicsView");
-    ui->horizontalLayout->replaceWidget(ui->graphicsView, eventHandler);
-    delete ui->graphicsView;
-    ui->graphicsView = eventHandler;
 }
 
 imageeditor::~imageeditor()
