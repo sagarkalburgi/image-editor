@@ -85,7 +85,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QGraphicsView" name="graphicsView">
+       <widget class="EventHandler" name="graphicsView">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -194,6 +194,13 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>EventHandler</class>
+   <extends>QGraphicsView</extends>
+   <header>events.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="imageeditor.qrc"/>
  </resources>
