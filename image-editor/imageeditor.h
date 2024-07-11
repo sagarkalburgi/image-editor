@@ -3,8 +3,12 @@
 // Qt
 #include <QtWidgets/QMainWindow>
 #include <QFileDialog>
+#include <QWidget>
 #include <QVBoxLayout>
+#include <QPushButton>
+#include <QAction>
 #include <QDebug>
+#include <QMenu>
 
 #include "ui_imageeditor.h"
 
@@ -33,7 +37,10 @@ public:
 
 private slots:
     void openFile(); // Slot to handle file opeing
+    void onMenuActionTriggered();  // Generic slot for new actions
 
 private:
     Ui::mainWindow* ui;
+    QVBoxLayout* scrollLayout;
+    void setupMenuBar();  // Declare a function to setup the menu bar
 };

@@ -1,11 +1,13 @@
 #include "imageeditor.h"
+#include "menu.h"
 
 imageeditor::imageeditor(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::mainWindow)
 {
     ui->setupUi(this);
 
-    connect(ui->actionopen, &QAction::triggered, this, &imageeditor::openFile);
+    // Setup the menu bar
+    setupMenuBar();
 }
 
 imageeditor::~imageeditor()
@@ -30,4 +32,48 @@ void imageeditor::openFile()
             qDebug() << "Failed to load image:" << fileName;
         }
     }
+}
+
+void imageeditor::onMenuActionTriggered()
+{
+    //QAction* action = qobject_cast<QAction*>(sender());
+    //if (action) {
+    //    QString actionText = action->text();
+    //    // Handle the action based on actionText
+    //    QPushButton* newButton = new QPushButton(actionText, this);
+    //    scrollLayout->addWidget(newButton);
+    //}
+}
+
+void imageeditor::setupMenuBar()
+{
+    // main manu bar options
+    for (int i = 0; i < MenuMain.length(); i++)
+    {
+        // Create a new action
+        QAction* action = new QAction(MenuMain[i], this);
+
+        // Add the new action to the existing menu
+        ui->menu_main->addAction(action);
+
+        switch (i)
+        {
+            // connect open action
+        case 0:
+            connect(action, &QAction::triggered, this, &imageeditor::openFile);
+            break;
+        default:
+            break;
+        }
+
+    }
+
+    // options menu bar updating
+    QMenu* menu = new QMenu("Options", this);
+    foreach(const QString & menuItem, MenuOptions) {
+        QAction* action = new QAction(menuItem, this);
+        menu->addAction(action);
+        connect(action, &QAction::triggered, this, &imageeditor::onMenuActionTriggered);
+    }
+    ui->menuBar->addMenu(menu);
 }
