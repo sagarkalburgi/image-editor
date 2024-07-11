@@ -163,14 +163,14 @@ void EventHandler::updatePixelInfo(const QPoint& pos)
 	{
 		QColor color = orignalImage.toImage().pixelColor(x, y);
 		QString info = QString("X: %1, Y: %2<br>"
-			"<span style='color: red;'>R: %3</span>, "
-			"<span style='color: green;'>G: %4</span>, "
-			"<span style='color: blue;'>B: %5</span>")
-			.arg(x)
-			.arg(y)
-			.arg(color.red())
-			.arg(color.green())
-			.arg(color.blue());
+                               "<span style='color: red;'>R: %3</span>, "
+                               "<span style='color: green;'>G: %4</span>, "
+							   "<span style='color: blue;'>B: %5</span>")
+						.arg(x)
+						.arg(y)
+						.arg(color.red())
+						.arg(color.green())
+						.arg(color.blue());
 		pixelInfoLabel->setTextFormat(Qt::RichText);
 		pixelInfoLabel->setText(info);
 
