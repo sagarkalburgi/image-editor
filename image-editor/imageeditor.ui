@@ -32,8 +32,42 @@
    <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
      <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="3">
+       <widget class="QLabel" name="label_code">
+        <property name="text">
+         <string>Code</string>
+        </property>
+       </widget>
+      </item>
       <item row="1" column="3">
        <widget class="QTextBrowser" name="codeOutput"/>
+      </item>
+      <item row="1" column="2">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_edits">
+        <property name="text">
+         <string>Edits</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="label_imageWindow">
+        <property name="text">
+         <string>Image Window</string>
+        </property>
+       </widget>
       </item>
       <item row="1" column="1" rowspan="2">
        <widget class="EventHandler" name="imageWindow">
@@ -57,42 +91,22 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QLabel" name="label_imageWindow">
-        <property name="text">
-         <string>Image Window</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_edits">
-        <property name="text">
-         <string>Edits</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <widget class="QLabel" name="label_code">
-        <property name="text">
-         <string>Code</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
       <item row="1" column="0">
-       <widget class="QListView" name="listView"/>
+       <widget class="QScrollArea" name="scrollArea">
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>131</width>
+           <height>620</height>
+          </rect>
+         </property>
+        </widget>
+       </widget>
       </item>
      </layout>
     </item>
@@ -110,24 +124,12 @@
    <property name="locale">
     <locale language="English" country="Germany"/>
    </property>
-   <widget class="QMenu" name="menubar">
+   <widget class="QMenu" name="menu_main">
     <property name="title">
      <string>menu</string>
     </property>
-    <addaction name="actionsave"/>
-    <addaction name="actionopen"/>
-    <addaction name="actionexit"/>
    </widget>
-   <widget class="QMenu" name="menuoptions">
-    <property name="title">
-     <string>options</string>
-    </property>
-    <addaction name="actionedge"/>
-    <addaction name="actionthreshold"/>
-    <addaction name="actionsplit"/>
-   </widget>
-   <addaction name="menubar"/>
-   <addaction name="menuoptions"/>
+   <addaction name="menu_main"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
