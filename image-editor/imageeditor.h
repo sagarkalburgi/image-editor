@@ -9,6 +9,9 @@
 #include <QAction>
 #include <QDebug>
 #include <QMenu>
+#include <QCheckBox>
+#include <QSlider>
+#include <QLineEdit>
 
 #include "ui_imageeditor.h"
 
