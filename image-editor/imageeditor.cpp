@@ -8,6 +8,11 @@ imageeditor::imageeditor(QWidget* parent)
 
     // Setup the menu bar
     setupMenuBar();
+
+    // Initialize the layout for the scroll area
+    QWidget* scrollAreaWidget = new QWidget(this);
+    scrollLayout = new QVBoxLayout(scrollAreaWidget);
+    ui->scrollArea->setWidget(scrollAreaWidget);
 }
 
 imageeditor::~imageeditor()
@@ -36,13 +41,13 @@ void imageeditor::openFile()
 
 void imageeditor::onMenuActionTriggered()
 {
-    //QAction* action = qobject_cast<QAction*>(sender());
-    //if (action) {
-    //    QString actionText = action->text();
-    //    // Handle the action based on actionText
-    //    QPushButton* newButton = new QPushButton(actionText, this);
-    //    scrollLayout->addWidget(newButton);
-    //}
+    QAction* action = qobject_cast<QAction*>(sender());
+    if (action) {
+        QString actionText = action->text();
+        // Handle the action based on actionText
+        QPushButton* newButton = new QPushButton(actionText, this);
+        scrollLayout->addWidget(newButton);
+    }
 }
 
 void imageeditor::setupMenuBar()
