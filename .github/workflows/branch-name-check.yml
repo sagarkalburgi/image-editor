@@ -1,0 +1,27 @@
+name: Enforce Branch Naming Conventions
+
+on:
+  create:
+    branches:
+      - '*'
+  push:
+    branches:
+      - '*'
+
+jobs:
+  check-branch-name:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Get branch name
+        id: branch_name
+        run: echo "::set-output name=branch::${GITHUB_REF#refs/heads/}"
+
+      - name: Validate branch name
+        run: |
+          if [[ ! "${{ steps.branch_name.outputs.branch }}" =~ ^(feature|bug-fix)/ ]]; then
+            echo "Invalid branch name: ${{ steps.branch_name.outputs.branch }}"
+            exit 1
+          fi
