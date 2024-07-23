@@ -3,15 +3,9 @@
 // Qt
 #include <QtWidgets/QMainWindow>
 #include <QFileDialog>
-#include <QWidget>
-#include <QVBoxLayout>
-#include <QPushButton>
 #include <QAction>
 #include <QDebug>
 #include <QMenu>
-#include <QCheckBox>
-#include <QSlider>
-#include <QLineEdit>
 
 #include "ui_imageeditor.h"
 
