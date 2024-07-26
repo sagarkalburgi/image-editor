@@ -16,22 +16,41 @@ WidgetCreator::WidgetCreator(QString widgetName, QStringList checkboxNames, QStr
     vLayout->setSpacing(10);  // Set spacing between elements in the vertical layout
     vLayout->setContentsMargins(10, 10, 10, 10);  // Set margins around the layout
 
-    // Create a horizontal layout for the label and checkbox
-    QHBoxLayout* labelCheckBoxLayout = new QHBoxLayout();
-    labelCheckBoxLayout->setSpacing(5);  // Space between label and checkboxes
+    // Create a horizontal layout for the label and close button
+    QHBoxLayout* labelClosebuttonLayout = new QHBoxLayout();
+    labelClosebuttonLayout->setSpacing(5);  // Space between label and close button
 
     // Create the label and add it to the horizontal layout
     QLabel* label = new QLabel(widgetName, newWidget);
-    labelCheckBoxLayout->addWidget(label);
+    labelClosebuttonLayout->addWidget(label);
+
+    // Create the close button and add it to the horizontal layout
+    QPushButton* closeButton = new QPushButton("Close", newWidget);
+    closeButton->setFixedSize(25, 25);
+    labelClosebuttonLayout->addWidget(closeButton);
+
+    // Connect the close button to emit the widgetClosed signal
+    connect(closeButton, &QPushButton::clicked, [this]() { emit widgetCloseButtonPressed(this); });
+
+    // Add the label and close button layout to the vertical layout
+    vLayout->addLayout(labelClosebuttonLayout);
+
+    // Create a horizontal layout for the check box
+    QHBoxLayout* CheckBoxLayout = new QHBoxLayout();
+    CheckBoxLayout->setSpacing(5);  // Space between check box
+
+    // Create a horizontal layout for the checkboxes
+    QHBoxLayout* checkBoxLayout = new QHBoxLayout();
+    checkBoxLayout->setSpacing(5);  // Space between checkboxes
 
     // Create the checkbox and add it to the horizontal layout
     foreach(const QString & checkbox, checkboxNames) {
         QCheckBox* checkBox = new QCheckBox(checkbox, newWidget);
-        labelCheckBoxLayout->addWidget(checkBox);
+        CheckBoxLayout->addWidget(checkBox);
     }
 
     // Add the label and checkbox layout to the vertical layout
-    vLayout->addLayout(labelCheckBoxLayout);
+    vLayout->addLayout(CheckBoxLayout);
 
     // Create a horizontal layout for the radio buttons
     QHBoxLayout* radioButtonLayout = new QHBoxLayout();

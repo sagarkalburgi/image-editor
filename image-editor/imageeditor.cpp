@@ -13,6 +13,7 @@ imageeditor::imageeditor(QWidget* parent)
     // Initialize the layout for the scroll area
     QWidget* scrollAreaWidget = new QWidget(this);
     scrollLayout = new QVBoxLayout(scrollAreaWidget);
+
     ui->scrollArea->setWidget(scrollAreaWidget);
 }
 
@@ -57,9 +58,13 @@ void imageeditor::onMenuActionTriggered()
     {
     case EdgeAction:
         {
-            WidgetCreator* EdgeWidget = new WidgetCreator("EdgeFilter", {}, { "Canny", "Sobel" }, { "Threshold" });
+            WidgetCreator* EdgeWidget = new WidgetCreator("EdgeFilter", {"test2", "test1"}, {"Canny", "Sobel"}, {"Threshold"});
             // Add the new widget to the scroll layout
             scrollLayout->addWidget(EdgeWidget);
+
+            // Connect the widgetClosed signal to the slot that handles removing the widget
+            connect(EdgeWidget, &WidgetCreator::widgetCloseButtonPressed, this, &imageeditor::removeWidgetFromLayout);
+
             break;
         }
     case ThresholdAction:
@@ -67,6 +72,9 @@ void imageeditor::onMenuActionTriggered()
             WidgetCreator* EdgeWidget = new WidgetCreator("Threshold", {}, { "R", "G", "B"}, {"Threshold"});
             // Add the new widget to the scroll layout
             scrollLayout->addWidget(EdgeWidget);
+
+            // Connect the widgetClosed signal to the slot that handles removing the widget
+            connect(EdgeWidget, &WidgetCreator::widgetCloseButtonPressed, this, &imageeditor::removeWidgetFromLayout);
             break;
         }
     case SplitAction:
@@ -111,4 +119,13 @@ void imageeditor::setupMenuBar()
         connect(action, &QAction::triggered, this, &imageeditor::onMenuActionTriggered);
     }
     ui->menuBar->addMenu(menu);
+}
+
+void imageeditor::removeWidgetFromLayout(QWidget* widget)
+{
+    // Remove the widget from the layout
+    scrollLayout->removeWidget(widget);
+
+    // Delete the widget
+    widget->deleteLater();
 }
