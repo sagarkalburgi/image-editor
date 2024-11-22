@@ -1,18 +1,12 @@
-#include "widgetManager.h"
+#include "dialogManager.h"
 
-WidgetCreator::WidgetCreator(QString widgetName, QStringList checkboxNames, QStringList radioButtonNames, QStringList sliderNames, QWidget* parent) : QWidget(parent)
+QDialog* DialogCreator::createDialog(QString dialogName, QStringList checkboxNames, QStringList radioButtonNames, QStringList sliderNames, QDialog* parent)
 {
-    // Create a new widget to hold all elements
-    QWidget* newWidget = new QWidget(this);
+    QDialog* newDialog = new QDialog();
+    newDialog->setStyleSheet("QDialog#newDialog { border: 2px solid black; }");
 
-    // Set dimensions for the new widget
-    //newWidget->setFixedSize(200, 80);
-
-    // Set the border style for the new widget
-    newWidget->setStyleSheet("QWidget#newWidget border: 2px solid black;");
-
-    // Create a vertical layout for the new widget
-    QVBoxLayout* vLayout = new QVBoxLayout(newWidget);
+    // Create a vertical layout for the new dialog
+    QVBoxLayout* vLayout = new QVBoxLayout(newDialog);
     vLayout->setSpacing(10);  // Set spacing between elements in the vertical layout
     vLayout->setContentsMargins(10, 10, 10, 10);  // Set margins around the layout
 
@@ -21,23 +15,16 @@ WidgetCreator::WidgetCreator(QString widgetName, QStringList checkboxNames, QStr
     labelClosebuttonLayout->setSpacing(5);  // Space between label and close button
 
     // Create the label and add it to the horizontal layout
-    QLabel* label = new QLabel(widgetName, newWidget);
+    QLabel* label = new QLabel(dialogName, newDialog);
     labelClosebuttonLayout->addWidget(label);
 
     // Create the close button and add it to the horizontal layout
-    QPushButton* closeButton = new QPushButton("Close", newWidget);
+    QPushButton* closeButton = new QPushButton("Close", newDialog);
     closeButton->setFixedSize(25, 25);
     labelClosebuttonLayout->addWidget(closeButton);
 
-    // Connect the close button to emit the widgetClosed signal
-    connect(closeButton, &QPushButton::clicked, [this]() { emit widgetCloseButtonPressed(this); });
-
     // Add the label and close button layout to the vertical layout
     vLayout->addLayout(labelClosebuttonLayout);
-
-    // Create a horizontal layout for the check box
-    QHBoxLayout* CheckBoxLayout = new QHBoxLayout();
-    CheckBoxLayout->setSpacing(5);  // Space between check box
 
     // Create a horizontal layout for the checkboxes
     QHBoxLayout* checkBoxLayout = new QHBoxLayout();
@@ -45,20 +32,20 @@ WidgetCreator::WidgetCreator(QString widgetName, QStringList checkboxNames, QStr
 
     // Create the checkbox and add it to the horizontal layout
     foreach(const QString & checkbox, checkboxNames) {
-        QCheckBox* checkBox = new QCheckBox(checkbox, newWidget);
-        CheckBoxLayout->addWidget(checkBox);
+        QCheckBox* checkBox = new QCheckBox(checkbox, newDialog);
+        checkBoxLayout->addWidget(checkBox);
     }
 
     // Add the label and checkbox layout to the vertical layout
-    vLayout->addLayout(CheckBoxLayout);
+    vLayout->addLayout(checkBoxLayout);
 
     // Create a horizontal layout for the radio buttons
     QHBoxLayout* radioButtonLayout = new QHBoxLayout();
     radioButtonLayout->setSpacing(5);  // Space between radio buttons
 
     // Create the radio buttons and add them to the horizontal layout
-    foreach(const QString& radioButtonName, radioButtonNames) {
-        QRadioButton* radioButton = new QRadioButton(radioButtonName, newWidget);
+    foreach(const QString & radioButtonName, radioButtonNames) {
+        QRadioButton* radioButton = new QRadioButton(radioButtonName, newDialog);
         radioButtonLayout->addWidget(radioButton);
     }
 
@@ -70,35 +57,32 @@ WidgetCreator::WidgetCreator(QString widgetName, QStringList checkboxNames, QStr
     sliderLayout->setSpacing(10);  // Set space between sliders
 
     // Create the horizontal slider and add it to the horizontal layout
-    foreach(const QString& sliderName, sliderNames) {
+    foreach(const QString & sliderName, sliderNames) {
         // Create a horizontal layout for the sliders and line edit
         QHBoxLayout* hLayout = new QHBoxLayout();
         hLayout->setSpacing(5);  // Space between label and checkboxes
 
         // Create slider and add it to hlayout
-        QSlider* slider = new QSlider(Qt::Horizontal, newWidget);
+        QSlider* slider = new QSlider(Qt::Horizontal, newDialog);
         slider->setFixedSize(120, 20);
         hLayout->addWidget(slider);
 
         // Create the line edit, set size and add it to the horizontal layout
-        QLineEdit* lineEdit = new QLineEdit(newWidget);
+        QLineEdit* lineEdit = new QLineEdit(newDialog);
         lineEdit->setFixedSize(20, 20);
         hLayout->addWidget(lineEdit);
 
         // Add it slider and textbox to sliderlayout
         sliderLayout->addLayout(hLayout);
 
-        // Set the size policy of newWidget to expanding
-        newWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        // Set the size policy of newDialog to expanding
+        newDialog->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
         // Set objectname
-        newWidget->setObjectName(widgetName);
+        newDialog->setObjectName(dialogName);
     }
 
     // Add the horizontal layout to the vertical layout
     vLayout->addLayout(sliderLayout);
-}
-
-WidgetCreator::~WidgetCreator()
-{
+    return newDialog;
 }
