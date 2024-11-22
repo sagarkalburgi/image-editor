@@ -1,6 +1,6 @@
 #include "imageeditor.h"
 #include "menu.h"
-#include "widgetManager.h"
+#include "dialogManager.h"
 
 imageeditor::imageeditor(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::mainWindow)
@@ -58,23 +58,28 @@ void imageeditor::onMenuActionTriggered()
     {
     case EdgeAction:
         {
-            WidgetCreator* EdgeWidget = new WidgetCreator("EdgeFilter", {"test2", "test1"}, {"Canny", "Sobel"}, {"Threshold"});
+		    QDialog* EdgeDialog = DialogCreator::createDialog("EdgeFilter", { "test2", "test1" }, { "Canny", "Sobel" }, { "Threshold" });
+            //DialogCreator* EdgeWidget = new DialogCreator("EdgeFilter", {"test2", "test1"}, {"Canny", "Sobel"}, {"Threshold"});
             // Add the new widget to the scroll layout
-            scrollLayout->addWidget(EdgeWidget);
+            scrollLayout->addWidget(EdgeDialog);
+
+            // Ensure the widget is visible
+            EdgeDialog->exec();
 
             // Connect the widgetClosed signal to the slot that handles removing the widget
-            connect(EdgeWidget, &WidgetCreator::widgetCloseButtonPressed, this, &imageeditor::removeWidgetFromLayout);
+            //connect(EdgeWidget, &DialogCreator::widgetCloseButtonPressed, this, &imageeditor::removeWidgetFromLayout);
 
             break;
         }
     case ThresholdAction:
         {
-            WidgetCreator* EdgeWidget = new WidgetCreator("Threshold", {}, { "R", "G", "B"}, {"Threshold"});
+            QDialog* ThresholdDialog = DialogCreator::createDialog("Threshold", {}, { "R", "G", "B"}, {"Threshold"});
             // Add the new widget to the scroll layout
-            scrollLayout->addWidget(EdgeWidget);
+            scrollLayout->addWidget(ThresholdDialog);
+            ThresholdDialog->exec();
 
             // Connect the widgetClosed signal to the slot that handles removing the widget
-            connect(EdgeWidget, &WidgetCreator::widgetCloseButtonPressed, this, &imageeditor::removeWidgetFromLayout);
+            //connect(ThresholdWidget, &DialogCreator::widgetCloseButtonPressed, this, &imageeditor::removeWidgetFromLayout);
             break;
         }
     case SplitAction:
