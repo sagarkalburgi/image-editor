@@ -59,27 +59,23 @@ void imageeditor::onMenuActionTriggered()
     case EdgeAction:
         {
 		    QDialog* EdgeDialog = DialogCreator::createDialog("EdgeFilter", { "test2", "test1" }, { "Canny", "Sobel" }, { "Threshold" });
-            //DialogCreator* EdgeWidget = new DialogCreator("EdgeFilter", {"test2", "test1"}, {"Canny", "Sobel"}, {"Threshold"});
+
             // Add the new widget to the scroll layout
             scrollLayout->addWidget(EdgeDialog);
 
             // Ensure the widget is visible
             EdgeDialog->exec();
-
-            // Connect the widgetClosed signal to the slot that handles removing the widget
-            //connect(EdgeWidget, &DialogCreator::widgetCloseButtonPressed, this, &imageeditor::removeWidgetFromLayout);
-
             break;
         }
     case ThresholdAction:
         {
             QDialog* ThresholdDialog = DialogCreator::createDialog("Threshold", {}, { "R", "G", "B"}, {"Threshold"});
+
             // Add the new widget to the scroll layout
             scrollLayout->addWidget(ThresholdDialog);
-            ThresholdDialog->exec();
 
-            // Connect the widgetClosed signal to the slot that handles removing the widget
-            //connect(ThresholdWidget, &DialogCreator::widgetCloseButtonPressed, this, &imageeditor::removeWidgetFromLayout);
+            // Ensure the widget is visible
+            ThresholdDialog->exec();
             break;
         }
     case SplitAction:
