@@ -35,7 +35,6 @@ public:
 private slots:
     void openFile(); // Slot to handle file opeing
     void onMenuActionTriggered();  // Generic slot for new actions
-    void removeWidgetFromLayout(QWidget* widget);   // slot to remove widgets
 
 private:
     Ui::mainWindow* ui;

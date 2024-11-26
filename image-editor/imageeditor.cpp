@@ -121,12 +121,3 @@ void imageeditor::setupMenuBar()
     }
     ui->menuBar->addMenu(menu);
 }
-
-void imageeditor::removeWidgetFromLayout(QWidget* widget)
-{
-    // Remove the widget from the layout
-    scrollLayout->removeWidget(widget);
-
-    // Delete the widget
-    widget->deleteLater();
-}
