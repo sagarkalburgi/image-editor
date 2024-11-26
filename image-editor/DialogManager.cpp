@@ -3,7 +3,8 @@
 QDialog* DialogCreator::createDialog(QString dialogName, QStringList checkboxNames, QStringList radioButtonNames, QStringList sliderNames, QDialog* parent)
 {
     QDialog* newDialog = new QDialog();
-    newDialog->setStyleSheet("QDialog#newDialog { border: 2px solid black; }");
+    newDialog->setStyleSheet("QDialog { border: 2px solid black; }");
+    newDialog->setFixedSize(175, 120);
 
     // Create a vertical layout for the new dialog
     QVBoxLayout* vLayout = new QVBoxLayout(newDialog);
