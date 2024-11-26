@@ -21,7 +21,8 @@ QDialog* DialogCreator::createDialog(QString dialogName, QStringList checkboxNam
 
     // Create the close button and add it to the horizontal layout
     QPushButton* closeButton = new QPushButton("Close", newDialog);
-    closeButton->setFixedSize(25, 25);
+    QObject::connect(closeButton, &QPushButton::clicked, newDialog, &QDialog::close);
+    closeButton->setFixedSize(50, 25);
     labelClosebuttonLayout->addWidget(closeButton);
 
     // Add the label and close button layout to the vertical layout
