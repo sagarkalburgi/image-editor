@@ -1,6 +1,7 @@
 #include "imageeditor.h"
 #include "menu.h"
 #include "dialogManager.h"
+#include "logging.h"
 
 imageeditor::imageeditor(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::mainWindow)
@@ -15,11 +16,15 @@ imageeditor::imageeditor(QWidget* parent)
     scrollLayout = new QVBoxLayout(scrollAreaWidget);
 
     ui->scrollArea->setWidget(scrollAreaWidget);
+
+    // Log initialization
+    qCInfo(imageEditorLog) << "Image editor initialized";
 }
 
 imageeditor::~imageeditor()
 {
     delete ui;
+    qCInfo(imageEditorLog) << "Image editor destroyed";
 }
 
 void imageeditor::openFile()
@@ -34,9 +39,10 @@ void imageeditor::openFile()
             scene->addItem(item);
             ui->imageWindow->setScene(scene);
             ui->imageWindow->fitInView(item, Qt::KeepAspectRatio);
+            qCInfo(imageEditorLog) << "Loaded image:" << fileName;
         }
         else {
-            qDebug() << "Failed to load image:" << fileName;
+            qCWarning(imageEditorLog) << "Failed to load image:" << fileName;
         }
     }
 }
@@ -65,6 +71,7 @@ void imageeditor::onMenuActionTriggered()
 
             // Ensure the widget is visible
             EdgeDialog->exec();
+            qCInfo(dialogLog) << "Edge filter dialog opened";
             break;
         }
     case ThresholdAction:
@@ -76,6 +83,7 @@ void imageeditor::onMenuActionTriggered()
 
             // Ensure the widget is visible
             ThresholdDialog->exec();
+            qCInfo(dialogLog) << "Threshold dialog opened";
             break;
         }
     case SplitAction:
