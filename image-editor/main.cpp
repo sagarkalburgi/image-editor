@@ -1,10 +1,19 @@
-#include "imageeditor.h"
-#include <QtWidgets/QApplication>
+#include <QApplication>
 
-int main(int argc, char *argv[])
+#include "imageeditor.h"
+#include "logging.h"
+
+int main(int argc, char* argv[])
 {
-    QApplication a(argc, argv);
-    imageeditor w;
-    w.show();
-    return a.exec();
+    QApplication app(argc, argv);
+
+    // Set the custom message handler
+    qInstallMessageHandler(customLogMessageHandler);
+
+    imageeditor editor;
+    editor.show();
+
+    int result = app.exec();
+
+    return result;
 }
