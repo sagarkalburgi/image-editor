@@ -95,12 +95,14 @@
     <QtMoc Include="imageeditor.h" />
     <ClCompile Include="Events.cpp" />
     <ClCompile Include="ImageEditor.cpp" />
+    <ClCompile Include="Logging.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="events.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="logging.h" />
     <ClInclude Include="menu.h" />
     <QtMoc Include="dialogManager.h" />
   </ItemGroup>
