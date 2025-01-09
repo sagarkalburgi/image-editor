@@ -41,9 +41,13 @@ void customLogMessageHandler(QtMsgType type, const QMessageLogContext& context, 
         break;
     }
 
-    logStream << QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz ")
-        << logLevel << ": " << msg << "\n";
+    QString logMessage = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz ")
+        + logLevel + ": " + msg + "\n";
+
+    logStream << logMessage;
     logStream.flush();
+
+    emit Logger::instance().newLogMessage(logMessage);
 
     if (type == QtFatalMsg) {
         abort();

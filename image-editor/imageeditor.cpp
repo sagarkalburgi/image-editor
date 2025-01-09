@@ -19,6 +19,9 @@ imageeditor::imageeditor(QWidget* parent)
 
     // Log initialization
     qCInfo(imageEditorLog) << "Image editor initialized";
+
+    // Connect the log message signal to the slot
+    connect(&Logger::instance(), &Logger::newLogMessage, this, &imageeditor::updateLogLabel);
 }
 
 imageeditor::~imageeditor()
@@ -95,6 +98,11 @@ void imageeditor::onMenuActionTriggered()
     default:
         break;
     }
+}
+
+void imageeditor::updateLogLabel(const QString& message)
+{
+    ui->label_log->setText(message);
 }
 
 void imageeditor::setupMenuBar()

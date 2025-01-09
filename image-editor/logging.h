@@ -12,4 +12,20 @@ Q_DECLARE_LOGGING_CATEGORY(dialogLog)
 // Custom message handler
 void customLogMessageHandler(QtMsgType type, const QMessageLogContext& context, const QString& msg);
 
+// Logger class to emit log messages
+class Logger : public QObject {
+    Q_OBJECT
+public:
+    static Logger& instance() {
+        static Logger instance;
+        return instance;
+    }
+
+signals:
+    void newLogMessage(const QString& message);
+
+private:
+    Logger() {}
+};
+
 #endif // LOGGING_H
