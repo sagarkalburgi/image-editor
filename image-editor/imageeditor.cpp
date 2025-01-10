@@ -26,8 +26,8 @@ imageeditor::imageeditor(QWidget* parent)
 
 imageeditor::~imageeditor()
 {
-    delete ui;
     qCInfo(imageEditorLog) << "Image editor destroyed";
+    delete ui;
 }
 
 void imageeditor::openFile()
