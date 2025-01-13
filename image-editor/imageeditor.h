@@ -35,6 +35,7 @@ public:
 private slots:
     void openFile(); // Slot to handle file opeing
     void onMenuActionTriggered();  // Generic slot for new actions
+	void updateLogLabel(const QString& message);  // Slot to update the log label
 
 private:
     Ui::mainWindow* ui;
