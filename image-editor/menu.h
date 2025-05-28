@@ -14,10 +14,19 @@ QStringList MenuMain = {
 	"Exit"
 };
 
+QStringList MenuHelp = {
+	"Info",
+	"Version",
+	"Tutorial"
+};
+
 enum ActionName {
 	EdgeAction,
 	ThresholdAction,
 	SplitAction,
 	PaintAction,
+	InfoAction,
+	VersionAction,
+	TutorialAction,
 	UnknownAction
 };
