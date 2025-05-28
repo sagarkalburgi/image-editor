@@ -51,7 +51,7 @@ ActionName getActionFromString(const QString& actionName) {
     return UnknownAction;
 }
 
-void imageeditor::onMenuActionTriggered()
+void imageeditor::onMenuOptionsTriggered()
 {
     QAction* action = qobject_cast<QAction*>(sender());
 
@@ -148,11 +148,11 @@ void imageeditor::setupMenuBar()
     }
 
     // options menu bar updating
-    QMenu* menu = new QMenu("Options", this);
-    foreach(const QString & menuItem, MenuOptions) {
-        QAction* action = new QAction(menuItem, this);
-        menu->addAction(action);
-        connect(action, &QAction::triggered, this, &imageeditor::onMenuActionTriggered);
+    QMenu* optionsMenu = new QMenu("Options", this);
+    foreach(const QString & menuItemOptions, MenuOptions) {
+        QAction* action = new QAction(menuItemOptions, this);
+        optionsMenu->addAction(action);
+        connect(action, &QAction::triggered, this, &imageeditor::onMenuOptionsTriggered);
     }
     ui->menuBar->addMenu(optionsMenu);
 
