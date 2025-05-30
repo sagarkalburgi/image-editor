@@ -3,6 +3,7 @@
 // Qt
 #include <QtWidgets/QMainWindow>
 #include <QFileDialog>
+#include <QMessageBox>
 #include <QAction>
 #include <QDebug>
 #include <QMenu>
@@ -34,8 +35,8 @@ public:
 
 private slots:
     void openFile(); // Slot to handle file opeing
-    void onMenuActionTriggered();  // Generic slot for new actions
-	void updateLogLabel(const QString& message);  // Slot to update the log label
+    void onMenuOptionsTriggered();  // Slot for options actions
+    void onMenuHelpTriggered();  // Slot for help actions
 
 private:
     Ui::mainWindow* ui;

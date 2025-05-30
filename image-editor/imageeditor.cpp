@@ -55,10 +55,12 @@ ActionName getActionFromString(const QString& actionName) {
     if (actionName == "Threshold") return ThresholdAction;
     if (actionName == "Split") return SplitAction;
     if (actionName == "Paint") return PaintAction;
+	if (actionName == "Info") return InfoAction;
+    if (actionName == "Version") return VersionAction;
     return UnknownAction;
 }
 
-void imageeditor::onMenuActionTriggered()
+void imageeditor::onMenuOptionsTriggered()
 {
     QAction* action = qobject_cast<QAction*>(sender());
 
@@ -100,10 +102,37 @@ void imageeditor::onMenuActionTriggered()
     }
 }
 
-void imageeditor::updateLogLabel(const QString& message)
+void imageeditor::onMenuHelpTriggered()
 {
-    ui->label_log->setText(message);
-}
+    QAction* action = qobject_cast<QAction*>(sender());
+
+    ActionName actionName = getActionFromString(action->text());
+    switch (actionName)
+    {
+    case InfoAction:
+        {
+		    // Display information about the project
+            QString infoText = R"(
+            <h2>Project Description</h2>
+            <p>The image-editor project is a simple and intuitive tool for editing images. It provides a variety of features such as cropping, resizing, rotating, and applying filters to enhance your photos. The goal of this project is to offer an easy-to-use interface for users to quickly edit their images without needing advanced photo editing skills.</p>
+
+            <h2>Code Generation</h2>
+            <p>Additionally, this tool can also be used to generate code in C++ or Python for the edits performed on the image. This feature allows developers to automate image processing tasks by integrating the generated code into their projects.</p>
+        )";
+            QMessageBox::information(this, "Infomation", infoText);
+            break;
+        }
+    case VersionAction:
+        {
+		    // Display the version of the project
+            QMessageBox::information(this, "Version", "Image Editor Version 1.0.0");
+            break;
+        }
+    case TutorialAction:
+        break;
+    default:
+        break;
+    }
 
 void imageeditor::setupMenuBar()
 {
@@ -129,11 +158,20 @@ void imageeditor::setupMenuBar()
     }
 
     // options menu bar updating
-    QMenu* menu = new QMenu("Options", this);
-    foreach(const QString & menuItem, MenuOptions) {
-        QAction* action = new QAction(menuItem, this);
-        menu->addAction(action);
-        connect(action, &QAction::triggered, this, &imageeditor::onMenuActionTriggered);
+    QMenu* optionsMenu = new QMenu("Options", this);
+    foreach(const QString & menuItemOptions, MenuOptions) {
+        QAction* action = new QAction(menuItemOptions, this);
+        optionsMenu->addAction(action);
+        connect(action, &QAction::triggered, this, &imageeditor::onMenuOptionsTriggered);
     }
-    ui->menuBar->addMenu(menu);
+    ui->menuBar->addMenu(optionsMenu);
+
+	// help menu bar updating
+	QMenu* helpMenu = new QMenu("Help", this);
+    foreach(const QString & menuItemHelp, MenuHelp) {
+        QAction* action = new QAction(menuItemHelp, this);
+        helpMenu->addAction(action);
+        connect(action, &QAction::triggered, this, &imageeditor::onMenuHelpTriggered);
+	}
+    ui->menuBar->addMenu(helpMenu);
 }
