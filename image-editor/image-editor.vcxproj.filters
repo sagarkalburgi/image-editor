@@ -43,7 +43,10 @@
     <ClCompile Include="Events.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WidgetManager.cpp">
+    <ClCompile Include="DialogManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Logging.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -51,7 +54,10 @@
     <QtMoc Include="events.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="widgetManager.h">
+    <QtMoc Include="dialogManager.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="logging.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
